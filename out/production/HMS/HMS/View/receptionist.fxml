@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import java.lang.*?>
+<TabPane stylesheets="@receptionist.css" tabClosingPolicy="UNAVAILABLE" nodeOrientation="RIGHT_TO_LEFT"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="HMS.Control.ReceptionistController">
+    <Tab text="الاستقبال">
+        <AnchorPane>
+            <TitledPane text="بيانات المريض" collapsible="false" AnchorPane.LeftAnchor="30" AnchorPane.topAnchor="130">
+                <GridPane hgap="10" vgap="10">
+                    <Label GridPane.rowIndex="1" GridPane.columnIndex="1" text="رقم المريض"/>
+                    <Label GridPane.rowIndex="2" GridPane.columnIndex="1" text="الاسم"/>
+                    <Label GridPane.rowIndex="3" GridPane.columnIndex="1" text="رقم الهوية"/>
+                    <Label GridPane.rowIndex="4" GridPane.columnIndex="1" text="تاريخ الميلاد"/>
+                    <Label GridPane.rowIndex="5" GridPane.columnIndex="1" text="النوع"/>
+                    <Label GridPane.rowIndex="6" GridPane.columnIndex="1" text="رقم الجوال"/>
+                    <Label GridPane.rowIndex="7" GridPane.columnIndex="1" text="الجنسية"/>
+                    <Label GridPane.rowIndex="8" GridPane.columnIndex="1" text="الحالة الاجتماعية"/>
+                    <Label GridPane.rowIndex="9" GridPane.columnIndex="1" text="العنوان"/>
+                    <Label GridPane.rowIndex="10" GridPane.columnIndex="1" text="البريد الالكتروني"/>
+                    <Label GridPane.rowIndex="11" GridPane.columnIndex="1" text="حساسية من مواد"/>
+                    <Label GridPane.rowIndex="12" GridPane.columnIndex="1" text="فصيلة الدم"/>
+                    <Label GridPane.rowIndex="13" GridPane.columnIndex="1" text="مكان الميلاد"/>
+                    <TextField GridPane.rowIndex="1" minWidth="280" GridPane.columnIndex="2" fx:id="patientID"
+                               editable="false"/>
+                    <TextField GridPane.rowIndex="2" GridPane.columnIndex="2" fx:id="patientName"/>
+                    <TextField GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="patientNationalID"/>
+                    <DatePicker minWidth="280" GridPane.rowIndex="4" GridPane.columnIndex="2"
+                                fx:id="patientDateOfBirth"/>
+                    <ComboBox minWidth="280" GridPane.rowIndex="5" GridPane.columnIndex="2" fx:id="patientGender">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="ذكر"/>
+                                <String fx:value="انثي"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <TextField GridPane.rowIndex="6" GridPane.columnIndex="2" fx:id="patientPhone"/>
+                    <TextField GridPane.rowIndex="7" GridPane.columnIndex="2" fx:id="patientNationality"/>
+                    <TextField GridPane.rowIndex="8" GridPane.columnIndex="2" fx:id="patientMarital"/>
+                    <TextField GridPane.rowIndex="9" GridPane.columnIndex="2" fx:id="patientAddress"/>
+                    <TextField GridPane.rowIndex="10" GridPane.columnIndex="2" fx:id="patientEmail"/>
+                    <TextField GridPane.rowIndex="11" GridPane.columnIndex="2" fx:id="patientAllergies"/>
+                    <TextField GridPane.rowIndex="12" GridPane.columnIndex="2" fx:id="patientBloodType"/>
+                    <TextField GridPane.rowIndex="13" GridPane.columnIndex="2" fx:id="patientBirthPlace"/>
+                    <HBox GridPane.rowIndex="15"
+                          GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER"
+                          alignment="CENTER" spacing="10">
+                        <Button onAction="#addPatient" fx:id="addNewPatient" text="اضافة" minWidth="100"/>
+                        <Button onAction="#updatePatient" fx:id="updatePatientDetails" text="تحديث" minWidth="100"/>
+                        <Button onAction="#clearPatient">
+                            <graphic>
+                                <ImageView fitWidth="30" fitHeight="25" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@clear.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </HBox>
+
+                </GridPane>
+            </TitledPane>
+            <TitledPane collapsible="false" AnchorPane.LeftAnchor="30" AnchorPane.topAnchor="20" text="البحث عن مريض">
+                <HBox spacing="10">
+                    <ComboBox onAction="#refreshSearchField" fx:id="searchMethod" minWidth="140">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="بالرقم"/>
+                                <String fx:value="بالاسم"/>
+                                <String fx:value="برقم الهوية"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <TextField fx:id="patientSearch" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT"/>
+                    <Button onAction="#searchPatient" fx:id="search" text="ابحث"/>
+                </HBox>
+            </TitledPane>
+            <TitledPane collapsible="false" text="الدفع" AnchorPane.leftAnchor="530" AnchorPane.topAnchor="20">
+                <HBox alignment="CENTER" spacing="10">
+                    <VBox spacing="10">
+                        <TitledPane collapsible="false" text="رقم المريض">
+                            <HBox spacing="10">
+                                <TextField fx:id="billPatientID"/>
+                                <Button fx:id="searchBills" onAction="#showPatientPaySet" text="عرض"/>
+                                <Button onAction="#clearBills">
+                                    <graphic>
+                                        <ImageView fitWidth="30" fitHeight="25" pickOnBounds="true">
+                                            <Image url="@clear.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </HBox>
+                        </TitledPane>
+                        <TitledPane text="الخدمات المعلقة" collapsible="false">
+                            <TableView fx:id="pendingServicesTable" maxHeight="230">
+                                <placeholder>
+                                    <Label text="لا يوجد خدمات معلقة"/>
+                                </placeholder>
+                                <columns>
+                                    <TableColumn fx:id="serviceNameCol" text="الخدمة" minWidth="190"/>
+                                    <TableColumn fx:id="serviceFacilityNameCol" text="العيادة" minWidth="170"/>
+                                </columns>
+
+                            </TableView>
+                        </TitledPane>
+                        <TitledPane text="ادوية الطوارئ المعلقة" collapsible="false">
+                            <TableView fx:id="pendingEmergencyOrdersTable" maxHeight="230">
+                                <placeholder>
+                                    <Label text="لا يوجد ادوية معلقة"/>
+                                </placeholder>
+                                <columns>
+                                    <TableColumn fx:id="medicineNameCol" text="الدواء" minWidth="190"/>
+                                    <TableColumn fx:id="facilityNameCol" text="العيادة" minWidth="170"/>
+                                </columns>
+
+                            </TableView>
+                        </TitledPane>
+                        <TitledPane text="فاتورة جديدة" collapsible="false">
+                            <HBox alignment="CENTER" spacing="15">
+                                <Button onAction="#issueBill" fx:id="registerBill" text="تسجيل" minWidth="90"/>
+                            </HBox>
+                        </TitledPane>
+                    </VBox>
+                    <VBox spacing="10">
+                        <TitledPane text="الفواتير" collapsible="false">
+                            <TableView fx:id="billsTable" minHeight="508">
+                                <columns>
+                                    <TableColumn fx:id="billIDCol" text="رقم الفاتورة" minWidth="100"/>
+                                    <TableColumn fx:id="amountCol" text="المبلغ" minWidth="100"/>
+                                    <TableColumn fx:id="paidAmountCol" text="المدفوع" minWidth="100"/>
+                                    <TableColumn fx:id="remAmountCol" text="المتبقي" minWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="لا يوجد فواتير"/>
+                                </placeholder>
+                            </TableView>
+                        </TitledPane>
+                        <HBox spacing="10">
+                            <TitledPane text="دفع مبلغ" collapsible="false">
+                                <HBox alignment="CENTER" spacing="30">
+                                    <TextField fx:id="payAmount" minWidth="300"/>
+                                    <Button fx:id="pay" onAction="#payBill" text="دفع" minWidth="100"/>
+                                </HBox>
+                            </TitledPane>
+                            <TitledPane collapsible="false" text="الطباعة">
+                                <HBox spacing="20">
+                                    <Button fx:id="billPrint" onAction="#printBill" text="طباعة الفاتورة"/>
+                                </HBox>
+                            </TitledPane>
+                        </HBox>
+                        <TitledPane collapsible="false" text="اجمالي مديونية المريض">
+                            <HBox alignment="CENTER" spacing="30">
+                                <TextField fx:id="patientDebit" minWidth="300" editable="false"/>
+                                <Label text="جنية مصري" minWidth="100"/>
+                            </HBox>
+                        </TitledPane>
+                    </VBox>
+                </HBox>
+
+            </TitledPane>
+            <TitledPane collapsible="false" text="تسجيل خدمة" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="20">
+                <VBox alignment="CENTER" spacing="20">
+                    <GridPane hgap="10" vgap="10" alignment="CENTER">
+                        <Label text="رقم المريض" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <TextField fx:id="servicePatientID" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <Label text="المنشأة" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        <ComboBox onMouseClicked="#refreshFacilities" onAction="#refreshServices"
+                                  minWidth="200" fx:id="serviceFacility" GridPane.rowIndex="3"
+                                  GridPane.columnIndex="2"/>
+                        <Label text="الطبيب" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        <ComboBox minWidth="200" fx:id="serviceDoctor" GridPane.rowIndex="4"
+                                  GridPane.columnIndex="2"/>
+                        <Label text="الخدمة" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        <SearchableComboBox maxWidth="200" fx:id="service" GridPane.rowIndex="5"
+                                            GridPane.columnIndex="2"/>
+                    </GridPane>
+                    <HBox alignment="CENTER" spacing="20">
+                        <Button fx:id="serviceRegister" onAction="#registerService" minWidth="120" text="تسجيل"/>
+                        <Button onAction="#clearServices">
+                            <graphic>
+                                <ImageView fitWidth="30" fitHeight="25">
+                                    <Image url="@clear.png"/>
+                                </ImageView>
+                            </graphic>
+
+                        </Button>
+                    </HBox>
+                </VBox>
+            </TitledPane>
+        </AnchorPane>
+    </Tab>
+</TabPane>
+

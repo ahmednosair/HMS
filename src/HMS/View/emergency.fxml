@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<TabPane xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="HMS.Control.EmergencyDoctorController"
+         stylesheets="@emergency.css" tabClosingPolicy="UNAVAILABLE" nodeOrientation="RIGHT_TO_LEFT">
+    <Tab text="الطوارئ">
+        <AnchorPane>
+            <TitledPane text="الطلبات غير المنفذة" collapsible="false" AnchorPane.leftAnchor="10"
+                        AnchorPane.topAnchor="10">
+                <VBox spacing="10">
+                    <TitledPane text="البحث عن مريض" collapsible="false" AnchorPane.LeftAnchor="30"
+                                AnchorPane.topAnchor="30">
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label text="رقم المريض"/>
+                            <TextField fx:id="pendingOrdersPatientID" minWidth="230"/>
+                            <Button onAction="#searchPendingOrders" minWidth="110" fx:id="showPendingOrders"
+                                    text="عرض"/>
+                            <Button onAction="#clearPendingOrders">
+                                <graphic>
+                                    <ImageView fitWidth="30" fitHeight="25">
+                                        <Image url="@clear.png"/>
+                                    </ImageView>
+                                </graphic>
+
+                            </Button>
+                            <Button fx:id="endOrder" onAction="#endOrder" text="انهاء الطلب"/>
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane collapsible="false" text="الطلبات">
+                        <TableView maxHeight="280" fx:id="pendingOrdersTable">
+                            <placeholder>
+                                <Label text="لا يوجد طلبات غير منفذة لهذا المريض"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn fx:id="pendingOrderIDCol" minWidth="90" text="الرقم"/>
+                                <TableColumn fx:id="pendingOrderMedNameCol" minWidth="150" text="الدواء"/>
+                                <TableColumn fx:id="pendingOrderDoseCol" minWidth="140" text="الجرعة"/>
+                                <TableColumn fx:id="pendingOrderFacilityCol" minWidth="140" text="العيادة"/>
+                                <TableColumn fx:id="pendingOrderDoctorCol" minWidth="140" text="الطبيب"/>
+                            </columns>
+                        </TableView>
+
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+            <TitledPane text="الطلبات" collapsible="false" AnchorPane.rightAnchor="520"
+                        AnchorPane.topAnchor="10">
+                <VBox spacing="10">
+                    <TitledPane text="البحث عن مريض" collapsible="false" AnchorPane.LeftAnchor="30"
+                                AnchorPane.topAnchor="30">
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label text="رقم المريض"/>
+                            <TextField fx:id="ordersPatientID" minWidth="230"/>
+                            <Button onAction="#searchOrders" minWidth="110" fx:id="showOrders" text="عرض"/>
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane text="الطلبات" collapsible="false">
+                        <TableView maxHeight="330" fx:id="ordersTable">
+                            <placeholder>
+                                <Label text="لا يوجد طلبات غير منفذة لهذا المريض"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn fx:id="orderIDCol" minWidth="90" text="الرقم"/>
+                                <TableColumn fx:id="orderMedNameCol" minWidth="150" text="الدواء"/>
+                                <TableColumn fx:id="orderDoseCol" minWidth="140" text="الجرعة"/>
+                                <TableColumn fx:id="orderFacilityCol" minWidth="140" text="العيادة"/>
+                                <TableColumn fx:id="orderDoctorCol" minWidth="140" text="الطبيب"/>
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+            <TitledPane text="المرضي" collapsible="false" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10">
+                <VBox spacing="20" fillWidth="false">
+                    <TitledPane text="البحث" collapsible="false">
+                        <HBox alignment="CENTER" spacing="10">
+                            <ComboBox onAction="#refreshSearchField" fx:id="searchMethod" minWidth="140">
+                                <value>
+                                    <String fx:value="بالاسم"/>
+                                </value>
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="بالاسم"/>
+                                        <String fx:value="بالرقم"/>
+                                        <String fx:value="برقم الهوية"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <TextField maxWidth="170" fx:id="patientSearch"/>
+                            <Button text="بحث" onAction="#searchPatient" fx:id="search"/>
+                            <Button onAction="#clearPatient">
+                                <graphic>
+                                    <ImageView fitWidth="25" fitHeight="25">
+                                        <Image url="@clear.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane collapsible="false" text="بيانات المريض">
+                        <GridPane hgap="10" vgap="10">
+                            <Label GridPane.rowIndex="1" GridPane.columnIndex="1" text="رقم المريض"/>
+                            <Label GridPane.rowIndex="2" GridPane.columnIndex="1" text="الاسم"/>
+                            <Label GridPane.rowIndex="3" GridPane.columnIndex="1" text="رقم الهوية"/>
+                            <Label GridPane.rowIndex="4" GridPane.columnIndex="1" text="تاريخ الميلاد"/>
+                            <Label GridPane.rowIndex="5" GridPane.columnIndex="1" text="النوع"/>
+                            <Label GridPane.rowIndex="6" GridPane.columnIndex="1" text="رقم الجوال"/>
+                            <Label GridPane.rowIndex="7" GridPane.columnIndex="1" text="الجنسية"/>
+                            <Label GridPane.rowIndex="8" GridPane.columnIndex="1" text="الحالة الاجتماعية"/>
+                            <Label GridPane.rowIndex="9" GridPane.columnIndex="1" text="العنوان"/>
+                            <Label GridPane.rowIndex="10" GridPane.columnIndex="1" text="البريد الالكتروني"/>
+                            <Label GridPane.rowIndex="11" GridPane.columnIndex="1" text="حساسية من مواد"/>
+                            <Label GridPane.rowIndex="12" GridPane.columnIndex="1" text="فصيلة الدم"/>
+                            <Label GridPane.rowIndex="13" GridPane.columnIndex="1" text="مكان الميلاد"/>
+                            <TextField GridPane.rowIndex="1" minWidth="310" GridPane.columnIndex="2" fx:id="patientID"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="2" GridPane.columnIndex="2" fx:id="patientName"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="patientNationalID"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="4" GridPane.columnIndex="2" fx:id="patientDateOfBirth"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="5" GridPane.columnIndex="2" fx:id="patientGender"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="6" GridPane.columnIndex="2" fx:id="patientPhone"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="7" GridPane.columnIndex="2" fx:id="patientNationality"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="8" GridPane.columnIndex="2" fx:id="patientMarital"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="9" GridPane.columnIndex="2" fx:id="patientAddress"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="10" GridPane.columnIndex="2" fx:id="patientEmail"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="11" GridPane.columnIndex="2" fx:id="patientAllergies"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="12" GridPane.columnIndex="2" fx:id="patientBloodType"
+                                       editable="false"/>
+                            <TextField GridPane.rowIndex="13" GridPane.columnIndex="2" fx:id="patientBirthPlace"
+                                       editable="false"/>
+                        </GridPane>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+        </AnchorPane>
+
+    </Tab>
+</TabPane>
+

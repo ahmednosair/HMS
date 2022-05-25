@@ -1,0 +1,20 @@
+
+Button {
+    -fx-font-size: 16px;
+}
+
+TextField {
+    -fx-font-size: 16px;
+}
+
+TitledPane {
+    -fx-font-size: 16px;
+}
+
+TabPane {
+    -fx-font-size: 18px;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}

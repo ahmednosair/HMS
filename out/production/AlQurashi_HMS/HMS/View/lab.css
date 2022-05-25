@@ -1,0 +1,14 @@
+Label {
+    -fx-font-size: 16;
+}
+
+TextField {
+    -fx-font-size: 16;
+}
+
+TitledPane {
+    -fx-font-size: 16;
+}
+.table-column {
+    -fx-alignment: CENTER;
+}

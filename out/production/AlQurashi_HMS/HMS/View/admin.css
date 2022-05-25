@@ -1,0 +1,17 @@
+TabPane {
+    -fx-font-size: 18px;
+}
+
+TitledPane{
+    -fx-font-size: 16px;
+}
+
+TextField{
+    -fx-font-size: 16px;
+}
+.table-column {
+    -fx-alignment: CENTER;
+}
+TableView{
+    -fx-font-size: 16px;
+}

@@ -1,0 +1,25 @@
+GridPane {
+    -fx-padding: 0 50 30 30;
+}
+#titleLabel{
+    -fx-font-size: 24;
+    -fx-padding: 20 0 20 0;
+}
+Label{
+    -fx-font-size: 18;
+}
+TextField{
+    -fx-font-size: 18;
+}
+PasswordField{
+    -fx-font-size: 18;
+}
+Button{
+    -fx-font-size: 18;
+}
+ComboBox{
+    -fx-font-size: 18;
+}
+.table-column {
+    -fx-alignment: CENTER;
+}

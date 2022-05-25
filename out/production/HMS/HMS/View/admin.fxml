@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<TabPane xmlns="http://javafx.com/javafx" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="HMS.Control.AdminController" stylesheets="@admin.css" nodeOrientation="RIGHT_TO_LEFT">
+    <Tab text="ادارة عامة">
+        <AnchorPane>
+            <TitledPane text="انواع الخدمات" collapsible="false" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="20">
+                <VBox spacing="10">
+                    <TitledPane collapsible="false" text="اضافة نوع خدمة جديد">
+                        <HBox spacing="10">
+                            <Label text="اسم النوع"/>
+                            <TextField/>
+                            <Button disable="true" text="اضافة"/>
+                            <Button disable="true" text="حذف"/>
+
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane collapsible="false" text="الانواع الحالية">
+                        <TableView>
+                            <placeholder>
+                                <Label text="لا يوجد انواع"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="رقم النوع" minWidth="170"/>
+                                <TableColumn text="اسم النوع" minWidth="270"/>
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+            <TitledPane collapsible="false" text="الخدمات" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="500">
+                <VBox spacing="10">
+                    <TitledPane collapsible="false" text="اضافة خدمة جديد">
+                        <GridPane alignment="CENTER" hgap="10" vgap="10">
+                            <Label text="اسم الخدمة" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <TextField GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <Label text="سعر الخدمة" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <TextField GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <Label text="العيادة" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            <ComboBox minWidth="200" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                            <HBox alignment="CENTER" spacing="20" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                                  GridPane.halignment="CENTER" GridPane.columnSpan="2">
+                                <Button disable="true" text="اضافة"/>
+                                <Button disable="true" text="حذف"/>
+                            </HBox>
+                        </GridPane>
+                    </TitledPane>
+                    <TitledPane collapsible="false" text="الخدمات الحالية">
+                        <TableView>
+                            <placeholder>
+                                <Label text="لا يوجد خدمات"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="الرقم" minWidth="90"/>
+                                <TableColumn text="الاسم" minWidth="170"/>
+                                <TableColumn text="العيادة" minWidth="170"/>
+                                <TableColumn text="السعر" minWidth="90"/>
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+        </AnchorPane>
+    </Tab>
+    <Tab text="ادارة الموظفين">
+        <AnchorPane>
+            <TitledPane text="البحث عن موظف" collapsible="false" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="30">
+                <VBox spacing="20" fillWidth="false">
+                    <TitledPane text="البحث" collapsible="false">
+                        <HBox spacing="10" alignment="CENTER">
+                            <ComboBox fx:id="medSearchMethod" minWidth="200">
+                                <value>
+                                    <String fx:value="باسم الموظف"/>
+                                </value>
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="برقم الموظف"/>
+                                        <String fx:value="باسم المسخدم"/>
+                                        <String fx:value="باسم العيادة"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <StackPane>
+                                <TextField fx:id="medSearchKey" minWidth="240"/>
+                                <SearchableComboBox fx:id="medSearchName"/>
+                            </StackPane>
+                            <Button disable="true" fx:id="medSearch" onAction="#search" text="بحث" minWidth="120"/>
+                            <Button onAction="#clearSearch">
+                                <graphic>
+                                    <ImageView fitWidth="30" fitHeight="25">
+                                        <Image url="@clear.png"/>
+                                    </ImageView>
+                                </graphic>
+
+                            </Button>
+
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane text="الموظفين" collapsible="false">
+                        <TableView fx:id="medsTable" minHeight="600">
+                            <placeholder>
+                                <Label text="لا يوجد موظفين"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="الرقم" minWidth="100"/>
+                                <TableColumn text="الاسم" minWidth="150"/>
+                                <TableColumn text="النوع" minWidth="100"/>
+                                <TableColumn text="رقم الهوية" minWidth="150"/>
+                                <TableColumn text="رقم الجوال" minWidth="150"/>
+                                <TableColumn text="المؤهل" minWidth="150"/>
+                                <TableColumn text="نوع الموظف" minWidth="150"/>
+                                <TableColumn text="المنشأة" minWidth="150"/>
+                                <TableColumn text="اسم المستخدم" minWidth="150"/>
+                                <TableColumn text="كلمة السر" minWidth="150"/>
+
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+            <TitledPane text="بيانات الموظف" collapsible="false" AnchorPane.rightAnchor="60"
+                        AnchorPane.topAnchor="30">
+                <GridPane hgap="10" vgap="10">
+                    <Label text="الرقم" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <TextField fx:id="addMedID" GridPane.rowIndex="1" GridPane.columnIndex="2" editable="false"/>
+                    <Label text="الاسم" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <TextField fx:id="addMedName" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <Label text="النوع" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <ComboBox minWidth="200" fx:id="addMedBarcode" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <Label text="رقم الهوية" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <TextField fx:id="addMedRetail" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                    <Label text="رقم الجوال" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                    <TextField fx:id="addMedPharPrice" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                    <Label text="المؤهل" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                    <TextField fx:id="addMedEmergencyPrice" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+                    <Label text="نوع الموظف" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                    <ComboBox fx:id="addMedUnit" GridPane.rowIndex="7" GridPane.columnIndex="2" minWidth="200"/>
+                    <Label text="المنشأة" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                    <ComboBox minWidth="200" fx:id="addMedPackSize" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+                    <Label text="اسم المستخدم" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                    <TextField GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+                    <Label text="كلمة السر" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                    <TextField GridPane.rowIndex="10" GridPane.columnIndex="2"/>
+                    <HBox alignment="CENTER" spacing="20" GridPane.rowIndex="11" GridPane.columnIndex="1"
+                          GridPane.halignment="CENTER" GridPane.columnSpan="2">
+                        <Button disable="true" text="اضافة" minWidth="100"/>
+                        <Button disable="true" text="تحديث" minWidth="100"/>
+                        <Button>
+                            <graphic>
+                                <ImageView fitWidth="30" fitHeight="25">
+                                    <Image url="@clear.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </GridPane>
+            </TitledPane>
+        </AnchorPane>
+
+    </Tab>
+    <Tab text="المرضي">
+        <AnchorPane>
+            <TitledPane text="ملف المريض" collapsible="false" AnchorPane.leftAnchor="10"
+                        AnchorPane.topAnchor="10">
+                <HBox spacing="10">
+                    <VBox spacing="10">
+                        <TitledPane text="البحث عن مريض" collapsible="false">
+                            <HBox spacing="10" alignment="CENTER">
+                                <ComboBox onAction="#refreshHistorySearchField" fx:id="historySearchMethod"
+                                          minWidth="140">
+                                    <value>
+                                        <String fx:value="بالرقم"/>
+                                    </value>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="بالرقم"/>
+                                            <String fx:value="بالاسم"/>
+                                            <String fx:value="برقم الهوية"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <TextField fx:id="historyPatientSearchKey" alignment="CENTER_RIGHT"
+                                           nodeOrientation="LEFT_TO_RIGHT"/>
+                                <Button disable="true" onAction="#historySearchPatient" fx:id="historySearch"
+                                        text="بحث"/>
+                            </HBox>
+                        </TitledPane>
+                        <TitledPane text="بيانات المريض" collapsible="false">
+                            <GridPane hgap="20" vgap="10">
+                                <Label GridPane.rowIndex="1" GridPane.columnIndex="1" text="رقم المريض"/>
+                                <Label GridPane.rowIndex="2" GridPane.columnIndex="1" text="الاسم"/>
+                                <Label GridPane.rowIndex="3" GridPane.columnIndex="1" text="رقم الهوية"/>
+                                <Label GridPane.rowIndex="4" GridPane.columnIndex="1" text="تاريخ الميلاد"/>
+                                <Label GridPane.rowIndex="5" GridPane.columnIndex="1" text="النوع"/>
+                                <Label GridPane.rowIndex="6" GridPane.columnIndex="1" text="رقم الجوال"/>
+                                <Label GridPane.rowIndex="7" GridPane.columnIndex="1" text="الجنسية"/>
+                                <Label GridPane.rowIndex="8" GridPane.columnIndex="1" text="الحالة الاجتماعية"/>
+                                <Label GridPane.rowIndex="9" GridPane.columnIndex="1" text="العنوان"/>
+                                <Label GridPane.rowIndex="10" GridPane.columnIndex="1" text="البريد الالكتروني"/>
+                                <Label GridPane.rowIndex="11" GridPane.columnIndex="1" text="حساسية من مواد"/>
+                                <Label GridPane.rowIndex="12" GridPane.columnIndex="1" text="فصيلة الدم"/>
+                                <Label GridPane.rowIndex="13" GridPane.columnIndex="1" text="مكان الميلاد"/>
+                                <TextField GridPane.rowIndex="1" GridPane.columnIndex="2" fx:id="historyPatientID"
+                                           editable="false" minWidth="250"/>
+                                <TextField GridPane.rowIndex="2" GridPane.columnIndex="2" fx:id="historyPatientName"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="3" GridPane.columnIndex="2"
+                                           fx:id="historyPatientNationalID"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="4" GridPane.columnIndex="2"
+                                           fx:id="historyPatientDateOfBirth"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="5" GridPane.columnIndex="2" fx:id="historyPatientGender"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="6" GridPane.columnIndex="2" fx:id="historyPatientPhone"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="7" GridPane.columnIndex="2"
+                                           fx:id="historyPatientNationality"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="8" GridPane.columnIndex="2" fx:id="historyPatientMarital"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="9" GridPane.columnIndex="2" fx:id="historyPatientAddress"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="10" GridPane.columnIndex="2" fx:id="historyPatientEmail"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="11" GridPane.columnIndex="2"
+                                           fx:id="historyPatientAllergies"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="12" GridPane.columnIndex="2"
+                                           fx:id="historyPatientBloodType"
+                                           editable="false"/>
+                                <TextField GridPane.rowIndex="13" GridPane.columnIndex="2"
+                                           fx:id="historyPatientBirthPlace"
+                                           editable="false"/>
+                                <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="14" GridPane.columnIndex="1"
+                                      GridPane.halignment="CENTER" GridPane.columnSpan="2">
+                                    <Button disable="true" text="طباعة الفواتير"/>
+                                    <Button onAction="#clearHistory">
+                                        <graphic>
+                                            <ImageView fitWidth="30" fitHeight="25">
+                                                <Image url="@clear.png"/>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </HBox>
+
+
+                            </GridPane>
+                        </TitledPane>
+                    </VBox>
+                    <VBox spacing="10">
+                        <HBox spacing="10">
+                            <TitledPane text="الخدمات" collapsible="false">
+                                <TableView fx:id="historyServicesTable">
+                                    <placeholder>
+                                        <Label text="لا يوجد خدمات لهذا المريض"/>
+                                    </placeholder>
+                                    <columns>
+                                        <TableColumn fx:id="historyServiceIDCol" minWidth="90" text="الرقم"/>
+                                        <TableColumn fx:id="historyServiceNameCol" minWidth="150" text="الخدمة"/>
+                                        <TableColumn fx:id="historyServiceFacility" minWidth="150" text="العيادة"/>
+                                        <TableColumn fx:id="historyServiceDoctor" minWidth="150" text="الطبيب"/>
+                                        <TableColumn fx:id="historyServiceDate" minWidth="110" text="التاريخ"/>
+                                        <TableColumn fx:id="historyServiceNotes" minWidth="150" text="الملاحظات"/>
+                                    </columns>
+                                </TableView>
+
+                            </TitledPane>
+                            <TitledPane text="الوصفات الطبية" collapsible="false">
+                                <TableView fx:id="historyRecipesTable">
+                                    <placeholder>
+                                        <Label text="لا يوجد وصفات طبية لهذا المريض"/>
+                                    </placeholder>
+                                    <columns>
+                                        <TableColumn fx:id="historyRecipeID" minWidth="90" text="الرقم"/>
+                                        <TableColumn fx:id="historyRecipeVisitID" minWidth="100" text="رقم الزيارة"/>
+                                        <TableColumn fx:id="historyRecipeFacility" minWidth="150" text="العيادة"/>
+                                        <TableColumn fx:id="historyRecipeDoctor" minWidth="150" text="الطبيب"/>
+                                        <TableColumn fx:id="historyRecipeDate" minWidth="110" text="التاريخ"/>
+                                    </columns>
+                                </TableView>
+                            </TitledPane>
+                        </HBox>
+                        <HBox spacing="10">
+                            <TitledPane text="وصفات الطوارئ" collapsible="false">
+                                <TableView fx:id="historyEmergencyTable">
+                                    <placeholder>
+                                        <Label text="لا يوجد وصفات طوارئ لهذا المريض"/>
+                                    </placeholder>
+                                    <columns>
+                                        <TableColumn fx:id="historyEmergencyOrderID" minWidth="90" text="الرقم"/>
+                                        <TableColumn fx:id="historyEmergencyOrderVisitID" minWidth="100"
+                                                     text="رقم الزيارة"/>
+                                        <TableColumn fx:id="historyEmergencyOrderFacility" minWidth="150"
+                                                     text="العيادة"/>
+                                        <TableColumn fx:id="historyEmergencyOrderDoctor" minWidth="150" text="الطبيب"/>
+                                        <TableColumn fx:id="historyEmergencyOrderDate" minWidth="150" text="التاريخ"/>
+                                        <TableColumn fx:id="historyEmergencyOrderMedicine" minWidth="190"
+                                                     text="الدواء"/>
+                                        <TableColumn fx:id="historyEmergencyOrderDose" minWidth="190" text="الجرعة"/>
+                                    </columns>
+                                </TableView>
+                            </TitledPane>
+                            <TitledPane text="تفاصيل الوصفة" collapsible="false">
+                                <TableView fx:id="historyRecipeDetailsTable">
+                                    <placeholder>
+                                        <Label text="برجاء تحديد وصفة طبية لعرض تفاصيلها"/>
+                                    </placeholder>
+                                    <columns>
+                                        <TableColumn fx:id="historyRecipeMedicine" minWidth="190" text="اسم الدواء"/>
+                                        <TableColumn fx:id="historyRecipeDose" minWidth="190" text="الجرعة"/>
+                                    </columns>
+                                </TableView>
+                            </TitledPane>
+                        </HBox>
+                    </VBox>
+
+                </HBox>
+            </TitledPane>
+
+        </AnchorPane>
+    </Tab>
+    <Tab text="ادارة الفواتير">
+        <AnchorPane>
+            <TitledPane collapsible="false" text="الفواتير" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10">
+                <VBox fillWidth="false" spacing="10">
+                    <HBox spacing="10">
+                        <TitledPane collapsible="false" text="البحث">
+                            <HBox spacing="10">
+                                <ComboBox minWidth="140">
+                                    <value>
+                                        <String fx:value="برقم المريض"/>
+                                    </value>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="برقم المريض"/>
+                                            <String fx:value="باسم المريض"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <TextField alignment="CENTER_RIGHT"
+                                           nodeOrientation="LEFT_TO_RIGHT"/>
+                                <Button disable="true" onAction="#historySearchPatient" text="بحث"/>
+
+                            </HBox>
+                        </TitledPane>
+                        <TitledPane collapsible="false" text="الطباعة">
+                            <HBox spacing="20">
+                                <Button minWidth="200" text="طباعة الفواتير المحددة"/>
+
+                            </HBox>
+                        </TitledPane>
+                    </HBox>
+                    <TitledPane collapsible="false" text="الفواتير">
+                        <TableView maxHeight="350">
+                            <placeholder>
+                                <Label text="لا يوجد فواتير"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="الرقم" minWidth="100"/>
+                                <TableColumn text="رقم المريض" minWidth="100"/>
+                                <TableColumn text="اسم المريض" minWidth="150"/>
+                                <TableColumn text="العيادة" minWidth="150"/>
+                                <TableColumn text="موظف الاستقبال" minWidth="150"/>
+                                <TableColumn text="التعاقد" minWidth="150"/>
+                                <TableColumn text="التاريخ" minWidth="150"/>
+                                <TableColumn text="المبلغ" minWidth="150"/>
+
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                    <HBox spacing="20">
+                        <TitledPane text="الخدمات المرتبطة بالفاتورة" collapsible="false">
+                            <TableView fx:id="pendingServicesTable" maxHeight="250">
+                                <placeholder>
+                                    <Label text="لا يوجد خدمات "/>
+                                </placeholder>
+                                <columns>
+                                    <TableColumn text="الخدمة" minWidth="190"/>
+                                    <TableColumn text="العيادة" minWidth="170"/>
+                                    <TableColumn text="الطبيب" minWidth="170"/>
+                                </columns>
+
+                            </TableView>
+                        </TitledPane>
+                        <TitledPane text="ادوية الطوارئ المرتبطة بالفاتورة" collapsible="false">
+                            <TableView fx:id="pendingEmergencyOrdersTable" maxHeight="250">
+                                <placeholder>
+                                    <Label text="لا يوجد ادوية"/>
+                                </placeholder>
+                                <columns>
+                                    <TableColumn text="الدواء" minWidth="190"/>
+                                    <TableColumn text="العيادة" minWidth="170"/>
+                                    <TableColumn text="الطبيب" minWidth="170"/>
+                                </columns>
+
+                            </TableView>
+                        </TitledPane>
+                    </HBox>
+                </VBox>
+            </TitledPane>
+        </AnchorPane>
+    </Tab>
+    <Tab text="ادارة الخدمات">
+        <AnchorPane>
+            <TitledPane collapsible="false" text="الخدمات" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="30">
+                <VBox fillWidth="false" spacing="10">
+                    <HBox spacing="10">
+                        <TitledPane collapsible="false" text="البحث">
+                            <HBox spacing="10">
+                                <ComboBox minWidth="140">
+                                    <value>
+                                        <String fx:value="بالعيادة"/>
+                                    </value>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="برقم المريض"/>
+                                            <String fx:value="باسم المريض"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <TextField alignment="CENTER_RIGHT"
+                                           nodeOrientation="LEFT_TO_RIGHT"/>
+                                <Button disable="true" onAction="#historySearchPatient" text="بحث"/>
+
+                            </HBox>
+                        </TitledPane>
+                    </HBox>
+                    <TitledPane collapsible="false" text="الخدمات">
+                        <TableView minHeight="500">
+                            <placeholder>
+                                <Label text="لا يوجد خدمات"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="رقم الخدمة" minWidth="100"/>
+                                <TableColumn text="اسم الخدمة" minWidth="100"/>
+                                <TableColumn text="رقم المريض" minWidth="100"/>
+                                <TableColumn text="اسم المريض" minWidth="150"/>
+                                <TableColumn text="العيادة" minWidth="150"/>
+                                <TableColumn text="الطبيب" minWidth="150"/>
+                                <TableColumn text="موظف التسجيل" minWidth="150"/>
+                                <TableColumn text="تاريخ التسجيل" minWidth="150"/>
+                                <TableColumn text="تاريخ الانتهاء" minWidth="150"/>
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+
+                </VBox>
+            </TitledPane>
+            <TitledPane text="عيادات الخدمات" collapsible="false" AnchorPane.topAnchor="30" AnchorPane.rightAnchor="20">
+                <VBox spacing="10">
+                    <TitledPane collapsible="false" text="اضافة عيادة جديدة">
+                        <HBox spacing="10">
+                            <Label text="اسم العيادة"/>
+                            <TextField/>
+                            <Button disable="true" text="اضافة"/>
+                            <Button disable="true" text="حذف"/>
+
+                        </HBox>
+                    </TitledPane>
+                    <TitledPane collapsible="false" text="العيادات الحالية">
+                        <TableView>
+                            <placeholder>
+                                <Label text="لا يوجد عيادات"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn text="رقم العيادة" minWidth="170"/>
+                                <TableColumn text="اسم العيادة" minWidth="270"/>
+                            </columns>
+                        </TableView>
+                    </TitledPane>
+                </VBox>
+            </TitledPane>
+
+        </AnchorPane>
+    </Tab>
+    <Tab text="الطوارئ">
+
+    </Tab>
+
+</TabPane>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="itext-2.1.7.js8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JasperReports/itext-2.1.7.js8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
